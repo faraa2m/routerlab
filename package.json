@@ -1,0 +1,32 @@
+{
+  "name": "routerlab",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Cost-quality routing for LLM APIs with open Pareto frontiers per task class.",
+  "license": "Apache-2.0",
+  "author": "Faraazuddin Mohammed",
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "bun run --filter '*' build",
+    "test": "bun run --filter '*' test",
+    "lint": "bun run --filter '*' lint",
+    "eval:all": "bun eval/cli.ts frontier-all",
+    "eval:smoke": "bun eval/cli.ts smoke",
+    "eval:plot": "bun eval/cli.ts plot",
+    "eval:build-frontier": "bun eval/cli.ts build-frontier"
+  },
+  "packageManager": "bun@1.1.0",
+  "engines": {
+    "bun": ">=1.1.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.5.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.95.1"
+  }
+}

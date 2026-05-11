@@ -1,0 +1,533 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-05-11T01:58:20.870Z",
+  "cost_source": {
+    "module": "@routerlab/core/cost",
+    "token_source_distribution": {
+      "tokenometer-empirical": 0,
+      "tokenometer-offline": 24,
+      "atlas-calibrated": 0,
+      "proxy": 0
+    },
+    "confidence_distribution": {
+      "high": 0,
+      "medium": 24,
+      "low": 0
+    }
+  },
+  "tasks": {
+    "qa": {
+      "frontier": [
+        {
+          "model": "llama-3.1-8b",
+          "provider": "groq",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.00000639,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium"
+        }
+      ],
+      "all": [
+        {
+          "model": "llama-3.1-8b",
+          "provider": "groq",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.00000639,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": false
+        },
+        {
+          "model": "mixtral-8x7b",
+          "provider": "groq",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.00003252,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "llama-3.3-70b",
+          "provider": "groq",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.00007417,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "claude-haiku-4-5",
+          "provider": "anthropic",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.0002245,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "claude-sonnet-4-6",
+          "provider": "anthropic",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.0006735,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "claude-opus-4-7",
+          "provider": "anthropic",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.0033675,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        }
+      ],
+      "dominated": [
+        {
+          "model": "mixtral-8x7b",
+          "provider": "groq",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.00003252,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "llama-3.3-70b",
+          "provider": "groq",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.00007417,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "claude-haiku-4-5",
+          "provider": "anthropic",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.0002245,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "claude-sonnet-4-6",
+          "provider": "anthropic",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.0006735,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "claude-opus-4-7",
+          "provider": "anthropic",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.0033675,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        }
+      ]
+    },
+    "classification": {
+      "frontier": [
+        {
+          "model": "llama-3.1-8b",
+          "provider": "groq",
+          "mean_quality": 0.5,
+          "mean_cost_usd": 0.000002965,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium"
+        }
+      ],
+      "all": [
+        {
+          "model": "llama-3.1-8b",
+          "provider": "groq",
+          "mean_quality": 0.5,
+          "mean_cost_usd": 0.000002965,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": false
+        },
+        {
+          "model": "mixtral-8x7b",
+          "provider": "groq",
+          "mean_quality": 0.5,
+          "mean_cost_usd": 0.000015959999999999996,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "llama-3.3-70b",
+          "provider": "groq",
+          "mean_quality": 0.5,
+          "mean_cost_usd": 0.00003375499999999999,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "claude-haiku-4-5",
+          "provider": "anthropic",
+          "mean_quality": 0.5,
+          "mean_cost_usd": 0.000117,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "claude-sonnet-4-6",
+          "provider": "anthropic",
+          "mean_quality": 0.5,
+          "mean_cost_usd": 0.00035099999999999997,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "claude-opus-4-7",
+          "provider": "anthropic",
+          "mean_quality": 0.5,
+          "mean_cost_usd": 0.0017549999999999998,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        }
+      ],
+      "dominated": [
+        {
+          "model": "mixtral-8x7b",
+          "provider": "groq",
+          "mean_quality": 0.5,
+          "mean_cost_usd": 0.000015959999999999996,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "llama-3.3-70b",
+          "provider": "groq",
+          "mean_quality": 0.5,
+          "mean_cost_usd": 0.00003375499999999999,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "claude-haiku-4-5",
+          "provider": "anthropic",
+          "mean_quality": 0.5,
+          "mean_cost_usd": 0.000117,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "claude-sonnet-4-6",
+          "provider": "anthropic",
+          "mean_quality": 0.5,
+          "mean_cost_usd": 0.00035099999999999997,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "claude-opus-4-7",
+          "provider": "anthropic",
+          "mean_quality": 0.5,
+          "mean_cost_usd": 0.0017549999999999998,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        }
+      ]
+    },
+    "codegen": {
+      "frontier": [],
+      "all": [],
+      "dominated": []
+    },
+    "summarization": {
+      "frontier": [
+        {
+          "model": "llama-3.1-8b",
+          "provider": "groq",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.00002909,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium"
+        }
+      ],
+      "all": [
+        {
+          "model": "llama-3.1-8b",
+          "provider": "groq",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.00002909,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": false
+        },
+        {
+          "model": "mixtral-8x7b",
+          "provider": "groq",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.0001608,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "llama-3.3-70b",
+          "provider": "groq",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.00034203,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "claude-haiku-4-5",
+          "provider": "anthropic",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.00097,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "claude-sonnet-4-6",
+          "provider": "anthropic",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.00291,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "claude-opus-4-7",
+          "provider": "anthropic",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.01455,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        }
+      ],
+      "dominated": [
+        {
+          "model": "mixtral-8x7b",
+          "provider": "groq",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.0001608,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "llama-3.3-70b",
+          "provider": "groq",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.00034203,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "claude-haiku-4-5",
+          "provider": "anthropic",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.00097,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "claude-sonnet-4-6",
+          "provider": "anthropic",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.00291,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "claude-opus-4-7",
+          "provider": "anthropic",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.01455,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        }
+      ]
+    },
+    "reasoning": {
+      "frontier": [
+        {
+          "model": "llama-3.1-8b",
+          "provider": "groq",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.000005690000000000001,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium"
+        }
+      ],
+      "all": [
+        {
+          "model": "llama-3.1-8b",
+          "provider": "groq",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.000005690000000000001,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": false
+        },
+        {
+          "model": "mixtral-8x7b",
+          "provider": "groq",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.000029399999999999996,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "llama-3.3-70b",
+          "provider": "groq",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.00006591,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "claude-haiku-4-5",
+          "provider": "anthropic",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.0002085,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "claude-sonnet-4-6",
+          "provider": "anthropic",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.0006255,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "claude-opus-4-7",
+          "provider": "anthropic",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.0031275,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        }
+      ],
+      "dominated": [
+        {
+          "model": "mixtral-8x7b",
+          "provider": "groq",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.000029399999999999996,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "llama-3.3-70b",
+          "provider": "groq",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.00006591,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "claude-haiku-4-5",
+          "provider": "anthropic",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.0002085,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "claude-sonnet-4-6",
+          "provider": "anthropic",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.0006255,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        },
+        {
+          "model": "claude-opus-4-7",
+          "provider": "anthropic",
+          "mean_quality": 0,
+          "mean_cost_usd": 0.0031275,
+          "n": 2,
+          "tokenSource": "tokenometer-offline",
+          "confidence": "medium",
+          "dominated": true
+        }
+      ]
+    }
+  }
+}

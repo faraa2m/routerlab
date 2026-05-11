@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="420" viewBox="0 0 720 420" font-family="-apple-system, BlinkMacSystemFont, sans-serif">
+<rect width="720" height="420" fill="white"/>
+<text x="360" y="26" text-anchor="middle" font-size="18" font-weight="600">Pareto Frontier — summarization</text>
+<text x="360" y="46" text-anchor="middle" font-size="12" fill="#555">2 examples per model · 1 on frontier · 5 dominated</text>
+<g transform="translate(70 60)">
+<rect x="0" y="0" width="610" height="300" fill="#fafafa" stroke="#ddd"/>
+<line x1="0" y1="300" x2="610" y2="300" stroke="#eee"/>
+<text x="-8" y="304" text-anchor="end" font-size="10" fill="#555">0.000</text>
+<line x1="0" y1="225" x2="610" y2="225" stroke="#eee"/>
+<text x="-8" y="229" text-anchor="end" font-size="10" fill="#555">0.250</text>
+<line x1="0" y1="150" x2="610" y2="150" stroke="#eee"/>
+<text x="-8" y="154" text-anchor="end" font-size="10" fill="#555">0.500</text>
+<line x1="0" y1="75" x2="610" y2="75" stroke="#eee"/>
+<text x="-8" y="79" text-anchor="end" font-size="10" fill="#555">0.750</text>
+<line x1="0" y1="0" x2="610" y2="0" stroke="#eee"/>
+<text x="-8" y="4" text-anchor="end" font-size="10" fill="#555">1.000</text>
+<line x1="0" y1="0" x2="0" y2="300" stroke="#eee"/>
+<text x="0" y="316" text-anchor="middle" font-size="10" fill="#555">$1.00e-6</text>
+<line x1="146.53376798096966" y1="0" x2="146.53376798096966" y2="300" stroke="#eee"/>
+<text x="146.53376798096966" y="316" text-anchor="middle" font-size="10" fill="#555">$1.00e-5</text>
+<line x1="293.0675359619393" y1="0" x2="293.0675359619393" y2="300" stroke="#eee"/>
+<text x="293.0675359619393" y="316" text-anchor="middle" font-size="10" fill="#555">$0.00010</text>
+<line x1="439.60130394290894" y1="0" x2="439.60130394290894" y2="300" stroke="#eee"/>
+<text x="439.60130394290894" y="316" text-anchor="middle" font-size="10" fill="#555">$0.00100</text>
+<line x1="586.1350719238786" y1="0" x2="586.1350719238786" y2="300" stroke="#eee"/>
+<text x="586.1350719238786" y="316" text-anchor="middle" font-size="10" fill="#555">$0.0100</text>
+<text x="305" y="342" text-anchor="middle" font-size="12" fill="#333">mean cost per call (log scale)</text>
+<text transform="translate(-46 150) rotate(-90)" text-anchor="middle" font-size="12" fill="#333">mean quality</text>
+<circle cx="323.2954073315826" cy="300" r="4" fill="white" stroke="#999" stroke-width="1.2"><title>mixtral-8x7b · cost=$0.00016 · quality=0.000 · n=2 · tokenometer-offline (medium)</title></circle>
+<circle cx="371.3259755892018" cy="300" r="4" fill="white" stroke="#999" stroke-width="1.2"><title>llama-3.3-70b · cost=$0.00034 · quality=0.000 · n=2 · tokenometer-offline (medium)</title></circle>
+<circle cx="437.6629163210883" cy="300" r="4" fill="white" stroke="#999" stroke-width="1.2"><title>claude-haiku-4-5 · cost=$0.00097 · quality=0.000 · n=2 · tokenometer-offline (medium)</title></circle>
+<circle cx="507.5772915589684" cy="300" r="4" fill="white" stroke="#999" stroke-width="1.2"><title>claude-sonnet-4-6 · cost=$0.00291 · quality=0.000 · n=2 · tokenometer-offline (medium)</title></circle>
+<circle cx="610" cy="300" r="4" fill="white" stroke="#999" stroke-width="1.2"><title>claude-opus-4-7 · cost=$0.0146 · quality=0.000 · n=2 · tokenometer-offline (medium)</title></circle>
+<rect x="208.98788283281772" y="294.5" width="11" height="11" transform="rotate(45 214.48788283281772 300)" fill="#0a7"><title>llama-3.1-8b · cost=$2.91e-5 · quality=0.000 · n=2 · tokenometer-offline (medium)</title></rect>
+<text x="222.48788283281772" y="294" font-size="9" fill="#333">llama-3.1-8b</text>
+<text x="331.2954073315826" y="294" font-size="9" fill="#333">mixtral-8x7b</text>
+<text x="379.3259755892018" y="294" font-size="9" fill="#333">llama-3.3-70b</text>
+<text x="445.6629163210883" y="294" font-size="9" fill="#333">claude-haiku-4-5</text>
+<text x="515.5772915589685" y="294" font-size="9" fill="#333">claude-sonnet-4-6</text>
+<text x="618" y="294" font-size="9" fill="#333">claude-opus-4-7</text>
+<rect x="472" y="2" width="138" height="44" fill="white" stroke="#ddd"/>
+<rect x="480" y="14" width="10" height="10" transform="rotate(45 485 19)" fill="#0a7"/>
+<text x="498" y="23" font-size="10" fill="#333">frontier</text>
+<circle cx="485" cy="36" r="4" fill="white" stroke="#999" stroke-width="1.2"/>
+<text x="498" y="39" font-size="10" fill="#333">dominated</text>
+</g>
+</svg>

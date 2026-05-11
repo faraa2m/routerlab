@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-05-10T00:00:00Z",
+  "frontiers": {
+    "qa": [
+      {
+        "model": "claude-haiku-4-5",
+        "provider": "anthropic",
+        "expectedCost": 0.00042,
+        "expectedQuality": 0.84,
+        "qualityLo95": 0.78,
+        "qualityHi95": 0.9,
+        "n": 50
+      },
+      {
+        "model": "llama-3.3-70b",
+        "provider": "groq",
+        "expectedCost": 0.00038,
+        "expectedQuality": 0.82,
+        "qualityLo95": 0.76,
+        "qualityHi95": 0.88,
+        "n": 50
+      },
+      {
+        "model": "claude-sonnet-4-6",
+        "provider": "anthropic",
+        "expectedCost": 0.00153,
+        "expectedQuality": 0.91,
+        "qualityLo95": 0.86,
+        "qualityHi95": 0.95,
+        "n": 50
+      }
+    ],
+    "codegen": [
+      {
+        "model": "claude-opus-4-7",
+        "provider": "anthropic",
+        "expectedCost": 0.018,
+        "expectedQuality": 0.93,
+        "qualityLo95": 0.88,
+        "qualityHi95": 0.97,
+        "n": 30
+      },
+      {
+        "model": "claude-sonnet-4-6",
+        "provider": "anthropic",
+        "expectedCost": 0.0036,
+        "expectedQuality": 0.88,
+        "qualityLo95": 0.83,
+        "qualityHi95": 0.93,
+        "n": 30
+      }
+    ]
+  }
+}

@@ -1,0 +1,53 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build artifacts
+dist/
+build/
+*.tsbuildinfo
+.turbo/
+
+# Bun
+bun.lockb
+
+# Test + coverage
+coverage/
+.nyc_output/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Cache
+.cache/
+.eslintcache
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+bun-debug.log*
+
+# Eval working state (only commit final frontier.json + summary.json + plots)
+eval/results/*.runlog.jsonl
+eval/results/cache/
+eval/results/runs/
+
+# Judge harness cache — local-only, regenerable
+eval/judge/cache/
+.claude/
+paper/

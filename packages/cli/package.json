@@ -1,0 +1,19 @@
+{
+  "name": "@routerlab/cli",
+  "version": "0.0.1",
+  "description": "CLI for routerlab — cost-quality routing for LLM APIs.",
+  "license": "Apache-2.0",
+  "author": "Faraazuddin Mohammed",
+  "type": "module",
+  "main": "src/index.ts",
+  "bin": {
+    "route": "src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@routerlab/core": "workspace:*"
+  }
+}

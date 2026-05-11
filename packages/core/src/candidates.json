@@ -1,0 +1,46 @@
+{
+  "_meta": {
+    "description": "Default candidate model pool for @routerlab/core. Pricing reflects 2026 published rates; refresh via scripts/refresh-pricing (Phase 3). Candidates are added to this pool only after their cost has been calibrated against the atlas dataset.",
+    "lastUpdated": "2026-05-10",
+    "currency": "USD",
+    "pricingUnit": "per million tokens"
+  },
+  "candidates": [
+    {
+      "provider": "anthropic",
+      "model": "claude-opus-4-7",
+      "pricing": { "inputUsdPerMtok": 15, "outputUsdPerMtok": 75 },
+      "contextWindow": 1000000
+    },
+    {
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-6",
+      "pricing": { "inputUsdPerMtok": 3, "outputUsdPerMtok": 15 },
+      "contextWindow": 1000000
+    },
+    {
+      "provider": "anthropic",
+      "model": "claude-haiku-4-5",
+      "pricing": { "inputUsdPerMtok": 1, "outputUsdPerMtok": 5 },
+      "contextWindow": 200000
+    },
+    {
+      "provider": "groq",
+      "model": "llama-3.3-70b",
+      "pricing": { "inputUsdPerMtok": 0.59, "outputUsdPerMtok": 0.79 },
+      "contextWindow": 128000
+    },
+    {
+      "provider": "groq",
+      "model": "llama-3.1-8b",
+      "pricing": { "inputUsdPerMtok": 0.05, "outputUsdPerMtok": 0.08 },
+      "contextWindow": 128000
+    },
+    {
+      "provider": "groq",
+      "model": "mixtral-8x7b",
+      "pricing": { "inputUsdPerMtok": 0.24, "outputUsdPerMtok": 0.24 },
+      "contextWindow": 32000
+    }
+  ]
+}

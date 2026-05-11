@@ -1,0 +1,17 @@
+{
+  "name": "@routerlab/core",
+  "version": "0.0.1",
+  "description": "Routing engine for cost-quality LLM model selection.",
+  "license": "Apache-2.0",
+  "author": "Faraazuddin Mohammed",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@tokenometer/core": "1.0.1"
+  }
+}

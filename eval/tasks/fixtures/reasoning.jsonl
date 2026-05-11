@@ -1,0 +1,3 @@
+{"id":"gsm8k-test-0","input":{"question":"Janet has 3 apples. She buys 5 more. How many apples does she have now?"},"reference":{"goldAnswer":"8"},"metadata":{"rawAnswer":"Janet starts with 3 apples and buys 5 more, so 3 + 5 = 8.\n#### 8"}}
+{"id":"gsm8k-test-1","input":{"question":"A bakery sells 12 cupcakes per hour for 4 hours. How many cupcakes did they sell in total?"},"reference":{"goldAnswer":"48"},"metadata":{"rawAnswer":"12 cupcakes per hour times 4 hours equals 48 cupcakes.\n#### 48"}}
+{"id":"gsm8k-test-2","input":{"question":"Tom had $20. He spent $7 on a book and $5 on lunch. How much money does he have left?"},"reference":{"goldAnswer":"8"},"metadata":{"rawAnswer":"Tom spent 7 + 5 = 12 dollars. He has 20 - 12 = 8 dollars left.\n#### 8"}}
