@@ -85,6 +85,14 @@ jobs:
           node-version: "20"
           registry-url: "https://registry.npmjs.org"
 
+      - name: Upgrade npm to latest
+        # Trusted Publisher OIDC token-exchange requires npm >= 11.5.1.
+        # Node 20 ships with npm 10.x which can sign provenance but cannot
+        # exchange the GitHub OIDC token for an npm publish credential —
+        # PUT to the registry returns a misleading 404. Upgrading here is
+        # the minimum-blast-radius fix until Node ships with npm 11.5.1+.
+        run: npm install -g npm@latest
+
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
