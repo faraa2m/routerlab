@@ -84,14 +84,18 @@ jobs:
       - name: Install dependencies (bun)
         run: bun install --frozen-lockfile
 
+      - name: Build all packages
+        # MUST run before Test: @routerlab/cli imports from @routerlab/core
+        # whose `package.json#main` points to `dist/index.js`. The workspace
+        # symlink resolves to `packages/core/`, but tests in the cli package
+        # fail with `Cannot find module '@routerlab/core'` unless dist/ has
+        # been built first. `bun run --filter '*' build` invokes
+        # `tsc -p tsconfig.json` per workspace package.
+        run: bun run --filter '*' build
+
       - name: Test
         # Real `bun test`, not the smoke fallback. Failing tests block publish.
         run: bun test
-
-      - name: Build all packages
-        # `bun run --filter '*' build` invokes `tsc -p tsconfig.json` per
-        # workspace package; produces the compiled JS that ships in the tarball.
-        run: bun run --filter '*' build
 
       - name: Normalize manifests (`npm pkg fix`)
         # Catches common manifest issues (bin permissions, repository field
