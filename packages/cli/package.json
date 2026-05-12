@@ -1,6 +1,6 @@
 {
   "name": "@routerlab/cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "CLI for routerlab — cost-quality routing for LLM APIs.",
   "license": "Apache-2.0",
   "author": "Faraazuddin Mohammed",
@@ -25,6 +25,6 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@routerlab/core": "^0.0.1"
+    "@routerlab/core": "^0.0.2"
   }
 }
