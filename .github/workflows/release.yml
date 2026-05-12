@@ -19,15 +19,38 @@ name: Release
 # both release creation and npm publishing now; keeping a second
 # publish-on-release workflow would race and fail with EPUBLISHCONFLICT.
 #
+# Auth: npm Trusted Publisher (OIDC). No long-lived NPM_TOKEN.
+#   At publish time, `actions/setup-node` plus the `id-token: write`
+#   permission lets `npm publish` exchange GitHub's OIDC token for a
+#   short-lived npm publish credential. npm's registry validates the
+#   token's `repository` + `workflow` claims against the Trusted Publisher
+#   binding configured for each package, then issues a one-shot publish
+#   credential — bypassing the "2FA required for publishing" policy that
+#   blocks classic tokens on existing packages.
+#
+#   Per-package binding: npm Trusted Publishers are configured per
+#   package, NOT per org. Both @routerlab/core AND @routerlab/cli must
+#   have an active Trusted Publisher binding pointing at
+#   faraa2m/routerlab + .github/workflows/release.yml, or `changeset
+#   publish` will fail on the unbound package. Bindings are created in
+#   the npm UI: package page → Settings → Publishing access → Add
+#   trusted publisher.
+#
+# Provenance: the same OIDC token that authenticates the publish also
+# signs each tarball's provenance attestation. `NPM_CONFIG_PROVENANCE=true`
+# forces `--provenance` on every `npm publish` invocation so the
+# attestation lands on the npm registry alongside the tarball.
+#
 # Required secrets:
 #   * GITHUB_TOKEN — provided by Actions, used for PR creation and tag pushes.
-#   * NPM_TOKEN    — granular access token with publish scope on @routerlab/*.
-#                    The same secret the retired publish.yml consumed; no
-#                    rotation required on this migration.
+#                    (No NPM_TOKEN — auth flows through OIDC, see above.)
 #
-# Provenance: `changesets/action` invokes `npm publish` internally; pass
-# `--provenance` via the `NPM_CONFIG_PROVENANCE` env var so each tarball
-# is signed by the GitHub OIDC token (id-token: write below).
+# Setup prerequisites (one-time, out-of-band):
+#   * npm Trusted Publisher binding for @routerlab/core pointing at this
+#     repo (faraa2m/routerlab) + .github/workflows/release.yml.
+#   * npm Trusted Publisher binding for @routerlab/cli  pointing at this
+#     repo (faraa2m/routerlab) + .github/workflows/release.yml.
+#     (Bindings are per-package, not per-org — both are required.)
 
 on:
   push:
@@ -88,7 +111,6 @@ jobs:
           title: "chore(release): version packages"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           # `changeset publish` shells out to `npm publish`. Setting
           # NPM_CONFIG_PROVENANCE=true on the publish step ensures each
           # tarball carries the GitHub OIDC provenance attestation, matching
