@@ -1,6 +1,6 @@
 # routerlab
 
-> Cost-quality routing for LLM APIs with open Pareto frontiers per task class.
+> Cost-quality routing for LLM APIs with reproducible Pareto frontiers per task class.
 
 ## What this is
 
