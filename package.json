@@ -16,13 +16,18 @@
     "eval:all": "bun eval/cli.ts frontier-all",
     "eval:smoke": "bun eval/cli.ts smoke",
     "eval:plot": "bun eval/cli.ts plot",
-    "eval:build-frontier": "bun eval/cli.ts build-frontier"
+    "eval:build-frontier": "bun eval/cli.ts build-frontier",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "changeset:publish": "bun run --filter '*' build && changeset publish"
   },
   "packageManager": "bun@1.1.0",
   "engines": {
     "bun": ">=1.1.0"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^0.7.0",
+    "@changesets/cli": "^2.31.0",
     "@types/bun": "latest",
     "typescript": "^5.5.0"
   },

@@ -1,0 +1,96 @@
+name: Release
+
+# Changesets-driven release pipeline for the routerlab monorepo.
+#
+# Flow:
+#   1. Contributors add `.changeset/*.md` files (via `bun run changeset`)
+#      describing each user-visible change and its semver bump.
+#   2. When changesets land on `main`, this workflow opens (or updates)
+#      a "Version Packages" PR that applies the pending changesets:
+#      bumps every affected workspace's `package.json#version`, rewrites
+#      `CHANGELOG.md` files, and deletes the consumed changeset md files.
+#   3. Merging the Version Packages PR re-runs this workflow. With no
+#      pending changesets, the action falls through to `publish`, which
+#      runs `bun run changeset:publish` — that script builds, then calls
+#      `changeset publish` which packs+publishes each workspace tarball
+#      to npm AND creates a GitHub Release per tag.
+#
+# Replaces the prior `publish.yml` (release-triggered). Changesets owns
+# both release creation and npm publishing now; keeping a second
+# publish-on-release workflow would race and fail with EPUBLISHCONFLICT.
+#
+# Required secrets:
+#   * GITHUB_TOKEN — provided by Actions, used for PR creation and tag pushes.
+#   * NPM_TOKEN    — granular access token with publish scope on @routerlab/*.
+#                    The same secret the retired publish.yml consumed; no
+#                    rotation required on this migration.
+#
+# Provenance: `changesets/action` invokes `npm publish` internally; pass
+# `--provenance` via the `NPM_CONFIG_PROVENANCE` env var so each tarball
+# is signed by the GitHub OIDC token (id-token: write below).
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: release-${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+jobs:
+  release:
+    name: Open Version PR or publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full history so changesets can compute changelogs against the
+          # last published tag.
+          fetch-depth: 0
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build all packages
+        # MUST run before Test: @routerlab/cli imports from @routerlab/core
+        # whose `package.json#main` points to `dist/index.js`. Same ordering
+        # as the retired publish.yml.
+        run: bun run --filter '*' build
+
+      - name: Test
+        run: bun test
+
+      - name: Run changesets action
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          # When changesets are pending, open/update the "Version Packages" PR.
+          # When that PR is merged (no pending changesets), this action calls
+          # the publish script which runs `changeset publish` to ship to npm
+          # AND tags + creates the GitHub Release for each shipped package.
+          version: bun run changeset:version
+          publish: bun run changeset:publish
+          commit: "chore(release): version packages"
+          title: "chore(release): version packages"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # `changeset publish` shells out to `npm publish`. Setting
+          # NPM_CONFIG_PROVENANCE=true on the publish step ensures each
+          # tarball carries the GitHub OIDC provenance attestation, matching
+          # the guarantees the retired publish.yml provided.
+          NPM_CONFIG_PROVENANCE: "true"
