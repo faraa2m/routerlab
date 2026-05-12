@@ -1,0 +1,123 @@
+name: Publish
+
+# Publish routerlab packages to npm with provenance attestations via
+# Trusted Publisher OIDC. No long-lived NPM_TOKEN — npm exchanges the
+# GitHub-issued OIDC token for a short-lived publish credential at
+# publish time, and the published package carries a verifiable provenance
+# attestation that links it back to this exact workflow run.
+#
+# Packages (publish in dependency order):
+#   1. @routerlab/core@<version>  — engine, depends on @tokenometer/core
+#   2. @routerlab/cli@<version>   — depends on @routerlab/core
+#
+# Triggers:
+#   * release.published — Recommended. Cut a GitHub Release tagged
+#     `v<version>` matching every workspace package's `package.json#version`.
+#   * workflow_dispatch — Manual lever with optional `dry_run` input. When
+#     `dry_run=true`, packs and validates but does NOT call `npm publish`
+#     against the live registry.
+#
+# Setup prerequisites (one-time, see `papers/PUBLISH-AUTOMATION.md`):
+#   * npm Trusted Publisher (a.k.a. OIDC publishing) configured on
+#     npmjs.com for the @routerlab org pointing at this repo + this
+#     workflow filename.
+#   * Optional: GitHub environment `npm` exists in repo settings if you
+#     want a required-reviewer manual approval gate.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Pack + verify only, do not call `npm publish`."
+        type: boolean
+        default: false
+
+concurrency:
+  group: publish-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Publish to npm (OIDC + provenance)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: npm
+      url: https://www.npmjs.com/package/@routerlab/cli
+    permissions:
+      # OIDC token for Trusted Publisher exchange AND for provenance
+      # attestation signing. Both require `id-token: write`.
+      id-token: write
+      # Reading the source tree to pack the tarballs.
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.1.0"
+
+      - name: Setup Node (for `npm publish`)
+        # We use bun for install + test + build, but `npm publish` is the
+        # canonical publisher (provenance flag, OIDC token exchange).
+        # Node 20+ is required for npm provenance.
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies (bun)
+        run: bun install --frozen-lockfile
+
+      - name: Test
+        # Real `bun test`, not the smoke fallback. Failing tests block publish.
+        run: bun test
+
+      - name: Build all packages
+        # `bun run --filter '*' build` invokes `tsc -p tsconfig.json` per
+        # workspace package; produces the compiled JS that ships in the tarball.
+        run: bun run --filter '*' build
+
+      - name: Normalize manifests (`npm pkg fix`)
+        # Catches common manifest issues (bin permissions, repository field
+        # shape, etc.) before npm rejects them at publish time.
+        run: |
+          npm pkg fix --workspaces || true
+
+      - name: Show planned publish manifest
+        # Dry-run pack each package, print the file list and tarball size.
+        # Easy to scan for accidentally-included secrets or huge artifacts.
+        run: |
+          for pkg in packages/core packages/cli; do
+            echo "=== $pkg ==="
+            (cd "$pkg" && npm pack --dry-run --json) | tee
+          done
+
+      - name: Publish @routerlab/core
+        # Provenance requires id-token:write (set above) and Node 20+.
+        # Dependency order: @routerlab/core must publish before @routerlab/cli
+        # can resolve it from the registry — npm publish on the CLI would
+        # otherwise fall back to looking for `workspace:*` and fail.
+        working-directory: packages/core
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            npm publish --access public --provenance --dry-run
+          else
+            npm publish --access public --provenance
+          fi
+
+      - name: Publish @routerlab/cli
+        working-directory: packages/cli
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            npm publish --access public --provenance --dry-run
+          else
+            npm publish --access public --provenance
+          fi
