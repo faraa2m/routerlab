@@ -5,15 +5,26 @@
   "license": "Apache-2.0",
   "author": "Faraazuddin Mohammed",
   "type": "module",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "bin": {
-    "route": "src/index.ts"
+    "route": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faraa2m/routerlab.git",
+    "directory": "packages/cli"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "bun test"
   },
   "dependencies": {
-    "@routerlab/core": "workspace:*"
+    "@routerlab/core": "^0.0.1"
   }
 }
