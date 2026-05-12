@@ -1,10 +1,12 @@
 name: Publish
 
-# Publish routerlab packages to npm with provenance attestations via
-# Trusted Publisher OIDC. No long-lived NPM_TOKEN — npm exchanges the
-# GitHub-issued OIDC token for a short-lived publish credential at
-# publish time, and the published package carries a verifiable provenance
-# attestation that links it back to this exact workflow run.
+# Publish routerlab packages to npm with provenance attestations.
+# Auth: NPM_TOKEN secret (classic granular token) — Trusted Publisher
+# OIDC requires existing packages on npm to bind; until @routerlab/core +
+# @routerlab/cli are first-published, the workflow uses NPM_TOKEN with
+# `--provenance` for the attestation. After first publish, the workflow
+# can migrate to pure OIDC by registering Trusted Publisher on npmjs.com
+# and removing the NPM_TOKEN env (see `papers/PUBLISH-AUTOMATION.md`).
 #
 # Packages (publish in dependency order):
 #   1. @routerlab/core@<version>  — engine, depends on @tokenometer/core
@@ -18,11 +20,13 @@ name: Publish
 #     against the live registry.
 #
 # Setup prerequisites (one-time, see `papers/PUBLISH-AUTOMATION.md`):
-#   * npm Trusted Publisher (a.k.a. OIDC publishing) configured on
-#     npmjs.com for the @routerlab org pointing at this repo + this
-#     workflow filename.
+#   * GitHub repository secret `NPM_TOKEN` — granular access token scoped
+#     to publish access on @routerlab packages, generated at
+#     npmjs.com → Account → Access Tokens → Granular.
 #   * Optional: GitHub environment `npm` exists in repo settings if you
 #     want a required-reviewer manual approval gate.
+#   * Future: Trusted Publisher migration after first successful publish
+#     (delete NPM_TOKEN, register at npmjs.com/settings/<org>/packages).
 
 on:
   release:
@@ -102,10 +106,15 @@ jobs:
 
       - name: Publish @routerlab/core
         # Provenance requires id-token:write (set above) and Node 20+.
+        # NPM_TOKEN is consumed via NODE_AUTH_TOKEN (setup-node@v4 wires
+        # the .npmrc auth header from this env var). Provenance attestation
+        # signs with the GitHub OIDC token regardless of auth method.
         # Dependency order: @routerlab/core must publish before @routerlab/cli
         # can resolve it from the registry — npm publish on the CLI would
         # otherwise fall back to looking for `workspace:*` and fail.
         working-directory: packages/core
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           if [ "${{ inputs.dry_run }}" = "true" ]; then
             npm publish --access public --provenance --dry-run
@@ -115,6 +124,8 @@ jobs:
 
       - name: Publish @routerlab/cli
         working-directory: packages/cli
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           if [ "${{ inputs.dry_run }}" = "true" ]; then
             npm publish --access public --provenance --dry-run
