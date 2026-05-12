@@ -4,9 +4,10 @@ name: Publish
 # Auth: NPM_TOKEN secret (classic granular token) — Trusted Publisher
 # OIDC requires existing packages on npm to bind; until @routerlab/core +
 # @routerlab/cli are first-published, the workflow uses NPM_TOKEN with
-# `--provenance` for the attestation. After first publish, the workflow
-# can migrate to pure OIDC by registering Trusted Publisher on npmjs.com
-# and removing the NPM_TOKEN env (see `papers/PUBLISH-AUTOMATION.md`).
+# `--provenance` for the attestation. After first publish, migrate to
+# pure OIDC by registering a Trusted Publisher on npmjs.com (Settings →
+# Organizations → @routerlab → Packages → Trusted Publishers) and
+# deleting the NPM_TOKEN secret.
 #
 # Packages (publish in dependency order):
 #   1. @routerlab/core@<version>  — engine, depends on @tokenometer/core
@@ -19,14 +20,14 @@ name: Publish
 #     `dry_run=true`, packs and validates but does NOT call `npm publish`
 #     against the live registry.
 #
-# Setup prerequisites (one-time, see `papers/PUBLISH-AUTOMATION.md`):
+# Setup prerequisites (one-time):
 #   * GitHub repository secret `NPM_TOKEN` — granular access token scoped
 #     to publish access on @routerlab packages, generated at
-#     npmjs.com → Account → Access Tokens → Granular.
+#     https://www.npmjs.com/settings/<your-user>/tokens → Generate New Token
+#     → Granular Access Token.
 #   * Optional: GitHub environment `npm` exists in repo settings if you
 #     want a required-reviewer manual approval gate.
-#   * Future: Trusted Publisher migration after first successful publish
-#     (delete NPM_TOKEN, register at npmjs.com/settings/<org>/packages).
+#   * Future: Trusted Publisher migration after first successful publish.
 
 on:
   release:
