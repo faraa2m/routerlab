@@ -9,6 +9,13 @@ same atlas-calibrated empirical token economics that powers the library.
 
 ## Install
 
+> **Runtime**: `@routerlab/cli` requires [Bun](https://bun.sh) (>= 1.1.0).
+> The binary's shebang is `#!/usr/bin/env bun` and the `eval` subcommand
+> dynamically imports a `.ts` runner module. Node.js is not supported as
+> the CLI runtime. The library package
+> ([`@routerlab/core`](https://www.npmjs.com/package/@routerlab/core)) is
+> runtime-agnostic and works on both.
+
 ```bash
 bun add @routerlab/cli
 ```
@@ -161,4 +168,4 @@ console.log(decision.chosen.model.model);
 
 ## License
 
-[Apache-2.0](../../LICENSE)
+Apache-2.0. See [`LICENSE`](./LICENSE).
