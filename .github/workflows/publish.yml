@@ -67,7 +67,10 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: "1.1.0"
+          # Match `ci.yml` which uses `latest`. Repo `bun.lock` is the
+          # post-1.2 text-format lockfile; bun 1.1.0 only understands the
+          # legacy binary lockb and would fail `--frozen-lockfile`.
+          bun-version: latest
 
       - name: Setup Node (for `npm publish`)
         # We use bun for install + test + build, but `npm publish` is the
