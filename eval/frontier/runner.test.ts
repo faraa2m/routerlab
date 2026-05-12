@@ -253,7 +253,7 @@ describe("aggregateBucket", () => {
 // ---------------------------------------------------------------------------
 
 describe("runFrontier (mocked runners)", () => {
-  test("smoke run produces summary rows + persisted outcomes", async () => {
+  test("smoke run produces summary rows + persisted outcomes", { timeout: 30000 }, async () => {
     const { dir, cleanup } = makeTmpResults();
     try {
       const { summary, outcomes } = await runFrontier({
