@@ -23,8 +23,8 @@
 //
 // This is the *load-bearing* differentiator for the project. The naming and
 // documentation in this file are deliberate: anyone auditing routerlab's
-// claim to original contribution should land here and see exactly what the
-// difference is from prior art.
+// cost-estimation design should land here and see exactly what differs from
+// prior art.
 //
 // --------------------------------------------------------------------------
 // TOKENOMETER INTEGRATION STRATEGY: (a) Bun-native workspace dependency

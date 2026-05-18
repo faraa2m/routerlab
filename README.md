@@ -34,6 +34,16 @@ const decision = await route({ task: "qa", qualityBar: 0.85, prompt });
 // => { model, expectedCost, expectedQuality, fallback }
 ```
 
+## Adoption examples
+
+- [Production routing examples](./examples/README.md) show support chatbot,
+  extraction, summarization, and code-review routing patterns.
+- [OpenAI-compatible gateway design](./docs/GATEWAY.md) shows how to put
+  routerlab in front of existing SDK clients without changing application
+  prompts.
+- The CLI package docs in [`packages/cli`](./packages/cli/README.md) cover
+  `route route`, `route frontier`, `route models`, and eval commands.
+
 ## Reproducing the published frontier
 
 ```bash
@@ -55,7 +65,7 @@ Cached judge outputs and provider responses keep this affordable (default judge 
   author       = {Faraazuddin Mohammed},
   title        = {{routerlab}: Practical Cost-Quality Routing for LLM APIs},
   year         = {2026},
-  note         = {TBD — preprint forthcoming}
+  howpublished = {\url{https://github.com/faraa2m/routerlab}}
 }
 ```
 
