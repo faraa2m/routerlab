@@ -1,5 +1,16 @@
 # @routerlab/cli
 
+## 1.0.0
+
+### Major Changes
+
+- [#11](https://github.com/faraa2m/routerlab/pull/11) [`7ccbc4d`](https://github.com/faraa2m/routerlab/commit/7ccbc4db88625187ae58652dbbc27a4d35e9362e) Thanks [@faraa2m](https://github.com/faraa2m)! - Require Node.js 26 for npm publishing workflows and local repository development.
+
+### Patch Changes
+
+- Updated dependencies [[`7ccbc4d`](https://github.com/faraa2m/routerlab/commit/7ccbc4db88625187ae58652dbbc27a4d35e9362e)]:
+  - @routerlab/core@1.0.0
+
 ## 0.0.2
 
 ### Patch Changes
