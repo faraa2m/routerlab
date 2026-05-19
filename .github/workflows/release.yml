@@ -82,15 +82,13 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "26"
           registry-url: "https://registry.npmjs.org"
 
       - name: Upgrade npm to latest
         # Trusted Publisher OIDC token-exchange requires npm >= 11.5.1.
-        # Node 20 ships with npm 10.x which can sign provenance but cannot
-        # exchange the GitHub OIDC token for an npm publish credential —
-        # PUT to the registry returns a misleading 404. Upgrading here is
-        # the minimum-blast-radius fix until Node ships with npm 11.5.1+.
+        # Keep npm current so OIDC publish auth and provenance support do
+        # not depend on the runner image's bundled npm patch level.
         run: npm install -g npm@latest
 
       - name: Install dependencies

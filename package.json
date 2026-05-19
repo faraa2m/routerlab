@@ -23,7 +23,8 @@
   },
   "packageManager": "bun@1.1.0",
   "engines": {
-    "bun": ">=1.1.0"
+    "bun": ">=1.1.0",
+    "node": ">=26"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.7.0",
