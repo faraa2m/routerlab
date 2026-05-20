@@ -1,5 +1,11 @@
 # @routerlab/core
 
+## 1.0.1
+
+### Patch Changes
+
+- [#13](https://github.com/faraa2m/routerlab/pull/13) [`b477b8d`](https://github.com/faraa2m/routerlab/commit/b477b8dff642d9144055a3eeb21b3028e0f4d646) Thanks [@faraa2m](https://github.com/faraa2m)! - Polish the repository's open-source project documentation and contributor guidance.
+
 ## 1.0.0
 
 ### Major Changes
