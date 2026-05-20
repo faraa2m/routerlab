@@ -19,14 +19,13 @@ name: Release
 # both release creation and npm publishing now; keeping a second
 # publish-on-release workflow would race and fail with EPUBLISHCONFLICT.
 #
-# Auth: npm Trusted Publisher (OIDC). No long-lived NPM_TOKEN.
+# Auth: npm Trusted Publisher (OIDC). No long-lived npm secret.
 #   At publish time, `actions/setup-node` plus the `id-token: write`
 #   permission lets `npm publish` exchange GitHub's OIDC token for a
 #   short-lived npm publish credential. npm's registry validates the
 #   token's `repository` + `workflow` claims against the Trusted Publisher
 #   binding configured for each package, then issues a one-shot publish
-#   credential — bypassing the "2FA required for publishing" policy that
-#   blocks classic tokens on existing packages.
+#   credential.
 #
 #   Per-package binding: npm Trusted Publishers are configured per
 #   package, NOT per org. Both @routerlab/core AND @routerlab/cli must
@@ -43,7 +42,7 @@ name: Release
 #
 # Required secrets:
 #   * GITHUB_TOKEN — provided by Actions, used for PR creation and tag pushes.
-#                    (No NPM_TOKEN — auth flows through OIDC, see above.)
+#                    npm publish auth flows through OIDC, see above.
 #
 # Setup prerequisites (one-time, out-of-band):
 #   * npm Trusted Publisher binding for @routerlab/core pointing at this
