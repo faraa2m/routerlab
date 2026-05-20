@@ -10,7 +10,10 @@ Where existing routers tend to hand-wave cost or hide their methodology, routerl
 
 ## Status
 
-Early / pre-release. Engine, eval harness, and per-task frontiers are under active development. Expect breaking changes until v0.1.0.
+The `@routerlab/core` and `@routerlab/cli` packages are published and usable
+for early production experiments. Engine, gateway, and eval APIs are still
+evolving, but documented behavior is tested and release-managed through
+Changesets.
 
 ## Install
 
@@ -68,6 +71,13 @@ Cached judge outputs and provider responses keep this affordable (default judge 
   howpublished = {\url{https://github.com/faraa2m/routerlab}}
 }
 ```
+
+## Project Health
+
+- [Contributing guide](./CONTRIBUTING.md)
+- [Security policy](./SECURITY.md)
+- [Code of Conduct](./CODE_OF_CONDUCT.md)
+- [Changelog](./CHANGELOG.md)
 
 ## License
 
