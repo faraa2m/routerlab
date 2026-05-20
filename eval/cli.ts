@@ -17,8 +17,8 @@
 // provider whose credentials are missing — running with a partial keyring
 // is supported (you get fewer rows in `summary.json`, not an abort).
 
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
+import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname, join } from "node:path";
 
 import type { TaskClass } from "../packages/core/src/types.ts";
 
@@ -36,6 +36,7 @@ import {
 } from "./frontier/runner.ts";
 import type { RunResponse, Runner } from "./runners/_types.ts";
 import type { ProviderId } from "./runners/_factory.ts";
+import { datasetCachePath } from "./tasks/_types.ts";
 
 // ---------------------------------------------------------------------------
 // Argv parsing
@@ -153,6 +154,25 @@ function smokeRunnerFactory(provider: ProviderId): Runner {
   return fixtureRunner(provider, `smoke-${provider}-fixture`);
 }
 
+function seedSmokeFixtures(): void {
+  const fixtures: Record<string, string> = {
+    qa: "qa.jsonl",
+    classification: "classification.jsonl",
+    summarization: "summarization.jsonl",
+    reasoning: "reasoning.jsonl",
+  };
+
+  for (const [task, filename] of Object.entries(fixtures)) {
+    const source = new URL(`./tasks/fixtures/${filename}`, import.meta.url).pathname;
+    const target = datasetCachePath(filename);
+    if (!existsSync(source)) {
+      throw new Error(`missing smoke fixture for ${task}: ${source}`);
+    }
+    mkdirSync(dirname(target), { recursive: true });
+    copyFileSync(source, target);
+  }
+}
+
 // ---------------------------------------------------------------------------
 // Command dispatch
 // ---------------------------------------------------------------------------
@@ -244,6 +264,7 @@ async function cmdSmoke(ctx: CommandContext): Promise<number> {
   // subprocesses that, while sandboxed, take time and have a real OS
   // dependency we don't want in CI smoke).
   const tasks: TaskClass[] = ["qa", "classification", "summarization", "reasoning"];
+  seedSmokeFixtures();
   const { summary } = await runFrontier({
     tasks,
     examplesPerTask: SMOKE_N,

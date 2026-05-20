@@ -1,0 +1,3 @@
+{"id":"tweet-fixture-0","input":{"text":"The new release is stable and noticeably faster."},"reference":"positive","metadata":{"label":"positive"}}
+{"id":"tweet-fixture-1","input":{"text":"The command failed twice and the logs were unclear."},"reference":"negative","metadata":{"label":"negative"}}
+{"id":"tweet-fixture-2","input":{"text":"The package installs and prints its help output."},"reference":"neutral","metadata":{"label":"neutral"}}
