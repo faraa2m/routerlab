@@ -1,5 +1,11 @@
 # @routerlab/core
 
+## 1.0.2
+
+### Patch Changes
+
+- [`b5d5c04`](https://github.com/faraa2m/routerlab/commit/b5d5c0416e402533951198a08a80192f930992fd) Thanks [@faraa2m](https://github.com/faraa2m)! - Run the published CLI under Node.js and report package versions from package metadata.
+
 ## 1.0.1
 
 ### Patch Changes
