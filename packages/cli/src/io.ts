@@ -30,11 +30,11 @@ export interface CliContext {
  * Read stdin to completion as a UTF-8 string.
  *
  * Returns an empty string if stdin is a TTY (interactive shell, no pipe)
- * — that way `route --task=qa --quality-bar=0.85` without `--input` and
+ * — that way `route route --task=qa --quality-bar=0.85` without `--input` and
  * without a piped stdin doesn't hang forever waiting on the user.
  */
 export async function readStdinToString(stdin: Readable): Promise<string> {
-  // Bun's stdin exposes `isTTY` (matches Node), so a TTY-attached caller
+  // Node and Bun expose `isTTY`, so a TTY-attached caller
   // doesn't block. Real pipes (`echo "hi" | route ...`) and injected
   // memory streams in tests both have `isTTY` falsy.
   const maybeTty = stdin as Readable & { isTTY?: boolean };

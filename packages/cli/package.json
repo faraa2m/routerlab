@@ -10,6 +10,9 @@
   "bin": {
     "route": "dist/index.js"
   },
+  "engines": {
+    "node": ">=20"
+  },
   "files": [
     "dist",
     "README.md",

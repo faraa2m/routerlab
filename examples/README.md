@@ -77,8 +77,8 @@ the skip reasons explain whether the change came from cost, quality, or latency.
 Include frontier output in docs or dashboards so teams can see the tradeoff:
 
 ```bash
-route frontier --task=summarization --format=json > frontier.summarization.json
-route frontier --task=codegen
+npx --yes @routerlab/cli frontier --task=summarization --format=json > frontier.summarization.json
+npx --yes @routerlab/cli frontier --task=codegen
 ```
 
 Publish the generated table or chart alongside routing policy changes. The goal

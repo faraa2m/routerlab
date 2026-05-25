@@ -18,14 +18,15 @@ Changesets.
 ## Install
 
 ```bash
-bun add @routerlab/core @routerlab/cli
+npm install @routerlab/core
+npm install --save-dev @routerlab/cli
 ```
 
 ## Usage
 
 ```bash
 # Route a single prompt at a quality bar of 0.85 for QA tasks:
-route --task=qa --quality-bar=0.85 --input=prompt.txt
+npx --yes @routerlab/cli route --task=qa --quality-bar=0.85 --input=prompt.txt
 ```
 
 Programmatic:
@@ -45,7 +46,7 @@ const decision = await route({ task: "qa", qualityBar: 0.85, prompt });
   routerlab in front of existing SDK clients without changing application
   prompts.
 - The CLI package docs in [`packages/cli`](./packages/cli/README.md) cover
-  `route route`, `route frontier`, `route models`, and eval commands.
+  `npx --yes @routerlab/cli route`, `frontier`, `models`, and eval commands.
 
 ## Reproducing the published frontier
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 // @routerlab/cli — `route` command entrypoint.
 //
 // This file is the binary's argv shim. Real CLI logic lives in `main.ts`

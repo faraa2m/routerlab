@@ -6,7 +6,15 @@
 // offline tokenizer proxies — this is the differentiation versus
 // RouteLLM, RouterArena, NotDiamond, and other prior open routers.
 
-export const version = "0.0.1";
+import { readFileSync } from "node:fs";
+
+function readPackageVersion(): string {
+  const packageJsonUrl = new URL("../package.json", import.meta.url);
+  const packageJson = JSON.parse(readFileSync(packageJsonUrl, "utf8")) as { version?: string };
+  return packageJson.version ?? "0.0.0";
+}
+
+export const version = readPackageVersion();
 
 export { route, getDefaultCandidates } from "./router.ts";
 

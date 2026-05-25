@@ -9,15 +9,17 @@ same atlas-calibrated empirical token economics that powers the library.
 
 ## Install
 
-> **Runtime**: `@routerlab/cli` requires [Bun](https://bun.sh) (>= 1.1.0).
-> The binary's shebang is `#!/usr/bin/env bun` and the `eval` subcommand
-> dynamically imports a `.ts` runner module. Node.js is not supported as
-> the CLI runtime. The library package
-> ([`@routerlab/core`](https://www.npmjs.com/package/@routerlab/core)) is
-> runtime-agnostic and works on both.
+> **Runtime**: the published CLI runs on Node.js >=20. This repository uses
+> Bun for local workspace orchestration and tests.
 
 ```bash
-bun add @routerlab/cli
+npm install --save-dev @routerlab/cli
+```
+
+Or run without installing:
+
+```bash
+npx --yes @routerlab/cli route --task=qa --quality-bar=0.85 --input=prompt.txt
 ```
 
 Or, inside the routerlab monorepo:
@@ -32,32 +34,32 @@ bun packages/cli/src/index.ts --help
 ```bash
 # Route a prompt for QA at quality bar 0.85:
 echo "What's the capital of France?" \
-  | route route --task=qa --quality-bar=0.85
+  | npx --yes @routerlab/cli route --task=qa --quality-bar=0.85
 
 # Same, with a $0.005 hard budget and JSON output for piping into jq:
 echo "Write a python function that ..." \
-  | route route --task=codegen --quality-bar=0.80 --max-cost-usd=0.005 --json \
+  | npx --yes @routerlab/cli route --task=codegen --quality-bar=0.80 --max-cost-usd=0.005 --json \
   | jq '.chosen.model.model'
 
 # Read the prompt from a file instead of stdin:
-route route --task=qa --quality-bar=0.85 --input=./prompt.txt
+npx --yes @routerlab/cli route --task=qa --quality-bar=0.85 --input=./prompt.txt
 
 # Inspect the published Pareto frontier for codegen:
-route frontier --task=codegen
+npx --yes @routerlab/cli frontier --task=codegen
 
 # Same, as JSON:
-route frontier --task=codegen --format=json
+npx --yes @routerlab/cli frontier --task=codegen --format=json
 
 # List candidate models (optionally filtered by provider):
-route models
-route models --provider=anthropic
-route models --json
+npx --yes @routerlab/cli models
+npx --yes @routerlab/cli models --provider=anthropic
+npx --yes @routerlab/cli models --json
 
 # Run the frontier eval pipeline for a single task:
-route eval frontier --task=qa --n=20
+npx --yes @routerlab/cli eval frontier --task=qa --n=20
 
 # Print versions:
-route version
+npx --yes @routerlab/cli version
 ```
 
 ## Subcommands
