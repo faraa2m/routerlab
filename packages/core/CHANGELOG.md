@@ -1,5 +1,11 @@
 # @routerlab/core
 
+## 1.1.0
+
+### Minor Changes
+
+- [#17](https://github.com/faraa2m/routerlab/pull/17) [`2a03146`](https://github.com/faraa2m/routerlab/commit/2a03146aba6193280c33a52218089a99bc0eed0e) Thanks [@faraa2m](https://github.com/faraa2m)! - Add `BudgetAwareRouter` for multi-step agent loops with remaining-budget preflight routing, actual Tokenometer usage pricing, estimated-step fallback accounting, and optional degraded-quality routing after a warning threshold.
+
 ## 1.0.2
 
 ### Patch Changes
