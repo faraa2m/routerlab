@@ -23,7 +23,7 @@ npm install @routerlab/core
 ## Quick API
 
 ```ts
-import { route, predictQuality, estimateCost } from "@routerlab/core";
+import { BudgetAwareRouter, route, predictQuality, estimateCost } from "@routerlab/core";
 
 const decision = await route({
   task: "qa",
@@ -36,16 +36,49 @@ const decision = await route({
 console.log(decision.chosen?.model.model);
 // e.g. "claude-sonnet-4-6"
 
-for (const fb of decision.fallback) console.log("fallback:", fb.model.model);
+for (const fb of decision.fallbacks) console.log("fallback:", fb.model.model);
 for (const sk of decision.skipped)  console.log("skipped:",  sk.model.model, sk.reason);
 ```
+
+### Budget-aware agent loops
+
+```ts
+const budget = new BudgetAwareRouter({
+  maxBudgetUsd: 0.25,
+  warnAt: 0.8,
+  degradedQualityBar: 0.65,
+});
+
+while (!done) {
+  const step = budget.routeStep({
+    task: "reasoning",
+    prompt: agentContext,
+    qualityBar: 0.85,
+  });
+
+  const response = await callYourModel(step.decision.chosen.model, agentContext);
+
+  budget.recordActualUsage({
+    model: step.decision.chosen.model,
+    usage: {
+      inputTokens: response.usage.prompt_tokens,
+      outputTokens: response.usage.completion_tokens,
+    },
+  });
+}
+```
+
+`routeStep()` caps the next decision by the remaining chain budget. After the
+provider call, `recordActualUsage()` prices the real usage with Tokenometer's
+runtime usage-pricing primitive. If a provider does not return usage, call
+`recordEstimatedStep(step.decision)` to account for the selected estimate.
 
 ### `RouteDecision` shape
 
 ```ts
 type RouteDecision = {
   chosen: RoutePick | null;     // null when no candidate passes the filters
-  fallback: RouteFallback[];    // ordered cheapest-next
+  fallbacks: RouteFallback[];   // ordered cheapest-next
   skipped: RouteSkipped[];      // every dropped candidate, with a reason
   request: RouteRequest;        // echoed
 };
@@ -58,6 +91,9 @@ See `types.ts` for the full shape. `RoutePick` carries
 ## What's in here
 
 - **`route(req)`** — top-level routing entry point.
+- **`BudgetAwareRouter`** — stateful task budget controller for multi-step
+  agent loops. It preflights each step with routerlab and records actual or
+  estimated spend after each call.
 - **`predictQuality` / `predictQualityWithCI`** — quality predictor; serves
   measured eval data when present, falls back to the seeded prior table
   (Wilson 95% CI exposed via the `WithCI` variant).

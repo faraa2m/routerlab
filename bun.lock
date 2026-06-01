@@ -16,7 +16,7 @@
     },
     "packages/cli": {
       "name": "@routerlab/cli",
-      "version": "0.0.1",
+      "version": "1.0.2",
       "bin": {
         "route": "src/index.ts",
       },
@@ -26,9 +26,9 @@
     },
     "packages/core": {
       "name": "@routerlab/core",
-      "version": "0.0.1",
+      "version": "1.0.2",
       "dependencies": {
-        "@tokenometer/core": "1.0.1",
+        "@tokenometer/core": "2.1.0",
       },
     },
   },
@@ -103,7 +103,7 @@
 
     "@tokenlens/models": ["@tokenlens/models@1.3.0", "", { "dependencies": { "@tokenlens/core": "1.3.0" } }, "sha512-9mx7ZGeewW4ndXAiD7AT1bbCk4OpJeortbjHHyNkgap+pMPPn1chY6R5zqe1ggXIUzZ2l8VOAKfPqOvpcrisJw=="],
 
-    "@tokenometer/core": ["@tokenometer/core@1.0.1", "", { "dependencies": { "@anthropic-ai/sdk": "^0.95.0", "@google/generative-ai": "^0.24.1", "@tokenlens/models": "^1.3.0", "gpt-tokenizer": "^3.4.0", "mistral-tokenizer-js": "^1.0.0", "tokenlens": "^1.3.1", "yaml": "^2.8.4" } }, "sha512-cjbTWG46X+1D6buWMIrr4aTXTStatLn1kbNLiuYCieoqIMQqxoglgbcaDTltw3YmcaBMvdmdCTLMvam7OeszEw=="],
+    "@tokenometer/core": ["@tokenometer/core@2.1.0", "", { "dependencies": { "@anthropic-ai/sdk": "^0.95.0", "@google/generative-ai": "^0.24.1", "@tokenlens/models": "^1.3.0", "gpt-tokenizer": "^3.4.0", "mistral-tokenizer-js": "^1.0.0", "tokenlens": "^1.3.1", "yaml": "^2.8.4" } }, "sha512-SPm584+cH6kuu5l5JVE0tFVHh+pZfHVKCf609HJmTlSSOzE832ACBywAnm+IBUIRSWQ9IsAtzLsACDjUqqLGow=="],
 
     "@types/bun": ["@types/bun@1.3.13", "", { "dependencies": { "bun-types": "1.3.13" } }, "sha512-9fqXWk5YIHGGnUau9TEi+qdlTYDAnOj+xLCmSTwXfAIqXr2x4tytJb43E9uCvt09zJURKXwAtkoH4nLQfzeTXw=="],
 

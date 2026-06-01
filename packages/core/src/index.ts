@@ -17,6 +17,17 @@ function readPackageVersion(): string {
 export const version = readPackageVersion();
 
 export { route, getDefaultCandidates } from "./router.ts";
+export { BudgetAwareRouter } from "./budget-router.ts";
+export type {
+  BudgetAwareRouterOptions,
+  BudgetRouteStepRequest,
+  BudgetRouteStepResult,
+  BudgetSnapshot,
+  BudgetState,
+  BudgetStepRecord,
+  BudgetStepSource,
+  RecordActualUsageInput,
+} from "./budget-router.ts";
 
 // Quality predictor: serves measured eval data when present, falls
 // back to the seeded prior table from `quality_prior.ts` otherwise.
