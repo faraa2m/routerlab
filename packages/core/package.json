@@ -26,6 +26,6 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@tokenometer/core": "1.0.1"
+    "@tokenometer/core": "2.1.0"
   }
 }

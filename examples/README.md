@@ -72,6 +72,43 @@ const decision = await route({
 Log skipped candidates. If the chosen model changes after a frontier update,
 the skip reasons explain whether the change came from cost, quality, or latency.
 
+## Multi-Step Agent Budget
+
+Autonomous loops need a chain budget, not just a per-call budget. Route the next
+step against the remaining spend, then record the provider's actual usage after
+the call completes.
+
+```ts
+import { BudgetAwareRouter } from "@routerlab/core";
+
+const budget = new BudgetAwareRouter({
+  maxBudgetUsd: 0.25,
+  warnAt: 0.8,
+  degradedQualityBar: 0.65,
+});
+
+for await (const prompt of agentPrompts) {
+  const step = budget.routeStep({
+    task: "reasoning",
+    prompt,
+    qualityBar: 0.85,
+  });
+
+  const response = await callModel(step.decision.chosen.model, prompt);
+
+  budget.recordActualUsage({
+    model: step.decision.chosen.model,
+    usage: {
+      inputTokens: response.usage.prompt_tokens,
+      outputTokens: response.usage.completion_tokens,
+    },
+  });
+}
+```
+
+When provider usage is unavailable, use `recordEstimatedStep(step.decision)` so
+the chain budget still advances from the selected model's expected cost.
+
 ## Frontier Snapshot
 
 Include frontier output in docs or dashboards so teams can see the tradeoff:

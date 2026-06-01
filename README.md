@@ -32,11 +32,28 @@ npx --yes @routerlab/cli route --task=qa --quality-bar=0.85 --input=prompt.txt
 Programmatic:
 
 ```ts
-import { route } from "@routerlab/core";
+import { BudgetAwareRouter, route } from "@routerlab/core";
 
 const decision = await route({ task: "qa", qualityBar: 0.85, prompt });
-// => { model, expectedCost, expectedQuality, fallback }
+// => { chosen, fallbacks, skipped }
+
+const budget = new BudgetAwareRouter({ maxBudgetUsd: 0.25, warnAt: 0.8 });
+const step = budget.routeStep({ task: "qa", qualityBar: 0.85, prompt });
+
+const response = await callYourModel(step.decision.chosen.model, prompt);
+budget.recordActualUsage({
+  model: step.decision.chosen.model,
+  usage: {
+    inputTokens: response.usage.prompt_tokens,
+    outputTokens: response.usage.completion_tokens,
+  },
+});
 ```
+
+`BudgetAwareRouter` keeps a running chain budget across multi-step agent loops.
+It uses routerlab for the next model choice and Tokenometer's actual-usage
+pricing after each provider call, so applications can degrade or stop before an
+autonomous workflow burns through its task budget.
 
 ## Adoption examples
 
