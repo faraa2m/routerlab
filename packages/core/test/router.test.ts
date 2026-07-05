@@ -29,6 +29,7 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 
 import {
   __resetQualityCacheForTest,
+  getCatalogModels,
   getDefaultCandidates,
   predictQuality,
   route,
@@ -95,6 +96,16 @@ describe("route() — happy path", () => {
     const b = route(basicRequest());
     expect(a.chosen.model.model).toBe(b.chosen.model.model);
     expect(a.chosen.expectedCost).toBe(b.chosen.expectedCost);
+  });
+
+  test("catalog-only models do not enter the default routed candidate pool", () => {
+    const catalogModels = getCatalogModels().map((entry) => entry.model);
+    const defaultModels = getDefaultCandidates().map((entry) => entry.model);
+
+    expect(catalogModels).toContain("gpt-5.5");
+    expect(catalogModels).toContain("claude-fable-5");
+    expect(defaultModels).not.toContain("gpt-5.5");
+    expect(defaultModels).not.toContain("claude-fable-5");
   });
 });
 

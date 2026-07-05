@@ -267,6 +267,15 @@ describe("models subcommand", () => {
     expect(parsed.candidates.length).toBeGreaterThan(0);
   });
 
+  test("--catalog lists unevaluated discovery models separately", async () => {
+    const { ctx, stdout } = makeContext(["models", "--catalog", "--json"]);
+    const code = await main(ctx);
+    expect(code).toBe(EXIT_SUCCESS);
+    const parsed = JSON.parse(stdout()) as { catalog: { model: string; evaluated: boolean }[] };
+    expect(parsed.catalog.some((entry) => entry.model === "gpt-5.5")).toBe(true);
+    expect(parsed.catalog.find((entry) => entry.model === "gpt-5.5")?.evaluated).toBe(false);
+  });
+
   test("invalid --provider exits with code 2", async () => {
     const { ctx, stderr } = makeContext(["models", "--provider=imaginary"]);
     const code = await main(ctx);

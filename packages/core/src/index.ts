@@ -17,6 +17,7 @@ function readPackageVersion(): string {
 export const version = readPackageVersion();
 
 export { route, getDefaultCandidates } from "./router.ts";
+export { getCatalogModels } from "./catalog.ts";
 export { BudgetAwareRouter } from "./budget-router.ts";
 export type {
   BudgetAwareRouterOptions,
@@ -45,6 +46,7 @@ export type { QualityWithCI } from "./quality_predictor.ts";
 
 export type {
   ModelCandidate,
+  ModelCatalogEntry,
   ModelPricing,
   Provider,
   RouteDecision,
