@@ -57,6 +57,18 @@ export interface ModelCandidate {
 }
 
 /**
+ * A provider model that routerlab can show for discovery, but may not be
+ * eligible for routing because it lacks quality data or a seeded prior.
+ */
+export interface ModelCatalogEntry extends ModelCandidate {
+  status: "stable" | "preview" | "limited" | "specialized" | "deprecated";
+  modalities: readonly string[];
+  sourceUrl: string;
+  evaluated: boolean;
+  unsupportedReason?: string;
+}
+
+/**
  * A routing request. `task` and `qualityBar` are required; everything else
  * is optional and fills in sensible defaults.
  *

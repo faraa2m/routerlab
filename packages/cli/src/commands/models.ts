@@ -6,7 +6,12 @@
 
 import { parseArgs } from "node:util";
 
-import { getDefaultCandidates, type ModelCandidate } from "@routerlab/core";
+import {
+  getCatalogModels,
+  getDefaultCandidates,
+  type ModelCandidate,
+  type ModelCatalogEntry,
+} from "@routerlab/core";
 
 import { CliError, EXIT_INVALID_INPUT } from "../errors.ts";
 import { type CliContext, writeLine } from "../io.ts";
@@ -24,6 +29,7 @@ export function runModels(ctx: CliContext): number {
       options: {
         provider: { type: "string" },
         json: { type: "boolean", default: false },
+        catalog: { type: "boolean", default: false },
       },
       strict: true,
       allowPositionals: false,
@@ -37,16 +43,17 @@ export function runModels(ctx: CliContext): number {
 
   const provider = parseProviderOptional(parsed.values["provider"]);
   const json = parsed.values["json"] === true;
+  const catalog = parsed.values["catalog"] === true;
 
-  const all = getDefaultCandidates();
+  const all = catalog ? getCatalogModels() : getDefaultCandidates();
   const filtered = provider === undefined ? all : all.filter((c) => c.provider === provider);
 
   if (json) {
-    writeLine(ctx.stdout, JSON.stringify({ candidates: filtered }, null, 2));
+    writeLine(ctx.stdout, JSON.stringify(catalog ? { catalog: filtered } : { candidates: filtered }, null, 2));
     return 0;
   }
 
-  renderTable(filtered, ctx);
+  renderTable(filtered, ctx, catalog);
   return 0;
 }
 
@@ -55,16 +62,23 @@ export function runModels(ctx: CliContext): number {
  * width-padded so values line up; this is a deliberate choice over a CSV /
  * TSV form because the primary audience is humans reading at a terminal.
  */
-function renderTable(rows: readonly ModelCandidate[], ctx: CliContext): void {
+function renderTable(
+  rows: readonly (ModelCandidate | ModelCatalogEntry)[],
+  ctx: CliContext,
+  catalog: boolean
+): void {
   if (rows.length === 0) {
     writeLine(ctx.stdout, "(no candidates match filter)");
     return;
   }
 
-  const headers = ["provider", "model", "input $/MTok", "output $/MTok", "context"];
+  const headers = catalog
+    ? ["provider", "model", "status", "evaluated", "input $/MTok", "output $/MTok", "context"]
+    : ["provider", "model", "input $/MTok", "output $/MTok", "context"];
   const data = rows.map((c) => [
     c.provider,
     c.model,
+    ...(catalog ? [(c as ModelCatalogEntry).status, String((c as ModelCatalogEntry).evaluated)] : []),
     c.pricing.inputUsdPerMtok.toFixed(2),
     c.pricing.outputUsdPerMtok.toFixed(2),
     c.contextWindow.toLocaleString(),
