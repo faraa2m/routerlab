@@ -1,5 +1,18 @@
 # @routerlab/cli
 
+## 1.1.0
+
+### Minor Changes
+
+- [#19](https://github.com/faraa2m/routerlab/pull/19) [`dfcfe8f`](https://github.com/faraa2m/routerlab/commit/dfcfe8f6857bf1665d58d2bc274e0d93fff4e98d) Thanks [@faraa2m](https://github.com/faraa2m)! - Add catalog-only model discovery without changing the default routed candidate pool.
+
+  `@routerlab/core` now exports `getCatalogModels()` for visible unevaluated models, and the CLI adds `route models --catalog` so users can inspect discovery metadata while routing continues to use only evaluated candidates by default.
+
+### Patch Changes
+
+- Updated dependencies [[`dfcfe8f`](https://github.com/faraa2m/routerlab/commit/dfcfe8f6857bf1665d58d2bc274e0d93fff4e98d)]:
+  - @routerlab/core@1.2.0
+
 ## 1.0.2
 
 ### Patch Changes
